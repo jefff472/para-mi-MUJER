@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti 🌷</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: #fdf6f6;
+            background-image: radial-gradient(#eacaca 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            flex-direction: column; /* Cambio para permitir scroll natural */
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden; /* Evita scroll horizontal por las flores */
+            overflow-y: auto;   /* ¡AHORA SÍ PERMITE BAJAR! */
+        }
+
+        /* Pantalla de Inicio (Para activar música) */
+        #pantalla-inicio {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(253, 246, 246, 0.98);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 1s ease;
+        }
+
+        .boton-abrir {
+            padding: 15px 40px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: white;
+            background: #d65a5a;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(214, 90, 90, 0.4);
+            transition: transform 0.2s;
+        }
+        
+        .boton-abrir:hover { transform: scale(1.05); }
+
+        /* Contenedor de la Carta */
+        .carta-container {
+            background: white;
+            width: 85%;
+            max-width: 600px;
+            padding: 60px 50px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            border-radius: 4px;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.05);
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1.5s ease;
+            display: none; 
+            margin: 40px 0; /* Margen arriba y abajo para que no se pegue */
+        }
+
+        .carta-visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            display: block !important;
+        }
+
+        /* Decoración de Flores */
+        .flor {
+            position: absolute;
+            font-size: 3.5rem;
+            user-select: none;
+            opacity: 0.9;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+            z-index: -1;
+        }
+
+        .t1 { top: -20px; left: -20px; transform: rotate(-20deg); }
+        .t2 { top: 10px; left: 30px; transform: rotate(-10deg) scale(0.8); }
+        .l1 { bottom: -20px; right: -20px; transform: rotate(20deg); }
+        .l2 { bottom: 20px; right: 40px; transform: rotate(10deg) scale(0.8); }
+        .l3 { bottom: -10px; left: -10px; transform: rotate(-15deg) scale(0.9); }
+        .t3 { top: -15px; right: -15px; transform: rotate(15deg); }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 2.8rem;
+            color: #d65a5a;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 2px solid #fcebeb;
+            padding-bottom: 20px;
+        }
+
+        p {
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 25px;
+            color: #555;
+            text-align: justify;
+        }
+
+        .destacado {
+            color: #d65a5a;
+            font-weight: 500;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+        }
+
+        .firma {
+            text-align: right;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-top: 50px;
+            color: #444;
+            font-style: italic;
+        }
+
+        .nota-final {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 40px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="musica" loop>
+        <source src="gone_para_tami.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="pantalla-inicio">
+        <button class="boton-abrir" onclick="abrirCarta()">💌 Abrir Carta</button>
+    </div>
+
+    <div class="carta-container" id="carta">
+        <!-- Flores -->
+        <div class="flor t1">🌷</div>
+        <div class="flor t2">🌷</div>
+        <div class="flor t3">🌷</div>
+        <div class="flor l1">🪷</div>
+        <div class="flor l2">🪷</div>
+        <div class="flor l3">🪷</div>
+
+        <h1>Para ti...</h1>
+        
+        <p>
+            Leí cada palabra de tu carta y me detuve un buen rato a pensar en esa foto nuestra de pequeños. Me hace sonreír imaginar que el destino ya estaba trabajando en "nosotros" mucho antes de que lo supiéramos, tejiendo los hilos para que, tarde o temprano, coincidiéramos.
+        </p>
+
+        <p>
+            Quiero que estés tranquila, de verdad. Entiendo perfectamente que el hospital y el internado te consumen ahora mismo. Te veo esforzarte tanto por tu futuro, lidiando con el cansancio y las guardias, y lejos de molestarme, eso solo hace que te admire más. <span class="destacado">Estoy orgulloso de la mujer en la que te estás convirtiendo.</span>
+        </p>
+
+        <p>
+            Sé que te preocupa no darme suficiente tiempo, pero quiero decirte algo: valoro cada mensaje que me mandas entre tus turnos, por cortito que sea. No necesito que estés pegada al teléfono todo el día para saber que me quieres. Esos "ratitos pequeños" donde apareces para darme calma son suficientes para mí, porque sé que en ellos va todo tu cariño.
+        </p>
+
+        <p>
+            Así que no te angusties por el reloj. <span class="destacado">Mi paciencia es tuya</span>. Yo también te elijo a ti, con tus horarios locos, con la distancia y con todo lo que venga. Estoy dispuesto a esperar lo que haga falta, porque lo que estamos construyendo vale cada segundo de espera.
+        </p>
+
+        <p>
+            Sigue echándole ganas, que yo aquí te cuido desde lejos, esperando el día en que ya no tengamos que imaginar el abrazo, sino que por fin nos lo demos recordando cada alegria, trompiezo o malas circunstancias que pasamos para llegar hasta ese momento. 
+        </p>
+
+        <div class="firma">
+            Con todo mi amor,<br>
+            Tu hombre que te ama con toda su alma.
+        </div>
+
+        <div class="nota-final">
+            Prometo amarte apasionadamente en todas las formas posibles, ahora y para siempre. 
+            Tu eres mi camino, hoy, mañana y siempre.
+        </div 
+    </div>
+
+    <script>
+        function abrirCarta() {
+            var musica = document.getElementById("musica");
+            var pantallaInicio = document.getElementById("pantalla-inicio");
+            var carta = document.getElementById("carta");
+
+            musica.play().catch(error => {
+                console.log("Error al reproducir: ", error);
+            });
+
+            pantallaInicio.style.opacity = "0";
+            setTimeout(() => {
+                pantallaInicio.style.display = "none";
+                carta.classList.add("carta-visible");
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
